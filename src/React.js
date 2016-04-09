@@ -119,7 +119,7 @@ exports.handle = handle;
 function createElement(class_) {
   return function(props) {
     return function(children) {
-      var unwrappedChildren = children.map(c => c.value0);
+      var unwrappedChildren = children.value0.map(c => c.value0);
       return React.createElement.apply(React, [class_, props].concat(unwrappedChildren));
     };
   };
