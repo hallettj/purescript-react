@@ -1,6 +1,14 @@
 module React.DOM where
 
-import React (ReactElement(), TagName(), createElementTagName)
+import Prelude (unit)
+
+import React ( ReactElement()
+             , ReactElementImpl(..)
+             , ReactElementRaw()
+             , TaggedReactElement(..)
+             , TagName()
+             , createElementTagName
+             )
 import React.DOM.Props (Props(), unsafeFromPropsArray)
 
 mkDOM :: TagName -> Array Props -> Array ReactElement -> ReactElement
@@ -9,7 +17,10 @@ mkDOM tag props = createElement tag (unsafeFromPropsArray props)
   createElement :: TagName -> Array Props -> Array ReactElement -> ReactElement
   createElement = createElementTagName
 
-foreign import text :: String -> ReactElement
+foreign import textImpl :: String -> ReactElementRaw
+
+text :: String -> ReactElement
+text str = ReactElement [StaticElement (textImpl str)] unit
 
 a :: Array Props -> Array ReactElement -> ReactElement
 a = mkDOM "a"
