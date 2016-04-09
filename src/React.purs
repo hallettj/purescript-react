@@ -1,7 +1,8 @@
 -- | This module defines foreign types and functions which wrap React's functionality.
 
 module React
-  ( ReactElement()
+  ( ReactElement
+  , ReactElementImpl()
   , ReactComponent()
   , ReactThis()
   , TagName()
@@ -40,6 +41,7 @@ module React
   , EventHandlerContext()
 
   , spec, spec'
+  , elements
 
   , getProps
   , getRefs
@@ -55,13 +57,14 @@ module React
   , createClassStateless
   , createClassStateless'
   , createElement
-  , createElementDynamic
   , createElementTagName
-  , createElementTagNameDynamic
   , createFactory
   ) where
 
-import Prelude (Unit(), pure, return, unit)
+import Prelude ( class Apply
+               , class Bind
+               , class Functor
+               , Unit(), (<>), bind, pure, return, unit)
 
 import Control.Monad.Eff (Eff())
 
@@ -71,7 +74,7 @@ import Unsafe.Coerce (unsafeCoerce)
 type TagName = String
 
 -- | A virtual DOM node, or component.
-foreign import data ReactElement :: *
+foreign import data ReactElementRaw :: *
 
 -- | A mounted react component
 foreign import data ReactComponent :: *
@@ -115,6 +118,13 @@ foreign import data Refs :: *
 
 -- | The type of DOM events.
 foreign import data Event :: *
+
+-- | The type of React elements as seen by users of this library.
+type ReactElement = ReactElementImpl Unit
+data ReactElementImpl a = ReactElement (Array TaggedReactElement) a
+
+data TaggedReactElement = StaticElement ReactElementRaw
+                        | DynamicElements (Array ReactElementRaw)
 
 -- | The type of mouse events.
 type MouseEvent =
@@ -247,6 +257,17 @@ type ReactSpec props state eff =
   , componentWillUnmount :: ComponentWillUnmount props state eff
   }
 
+instance functorReactElement :: Functor ReactElementImpl where
+  map f (ReactElement es x) = ReactElement es (f x)
+
+instance applyReactElement :: Apply ReactElementImpl where
+  apply (ReactElement as f) (ReactElement bs x) = ReactElement (as <> bs) (f x)
+
+instance bindReactElement :: Bind ReactElementImpl where
+  bind (ReactElement es x) f =
+    case f x of
+      ReactElement es' y -> ReactElement (es <> es') y
+
 -- | Create a component specification with a provided state.
 spec :: forall props state eff. state -> Render props state eff -> ReactSpec props state eff
 spec state = spec' (\_ -> pure state)
@@ -265,6 +286,19 @@ spec' getInitialState renderFn =
   , componentDidUpdate: \_ _ _ -> return unit
   , componentWillUnmount: \_ -> return unit
   }
+
+-- | Produce a dynamic elements value from an array of static or dynamic elements
+elements :: Array ReactElement -> ReactElement
+elements es = ReactElement [DynamicElements (flat es)] unit
+  where
+    flat reArray = do
+      reactElements <- reArray
+      case reactElements of
+        ReactElement taggedElements _ -> do
+          taggedElement <- taggedElements
+          case taggedElement of
+            StaticElement   rawElem  -> [rawElem]
+            DynamicElements rawElems -> rawElems
 
 -- | React class for components.
 foreign import data ReactClass :: * -> *
@@ -301,17 +335,11 @@ createClassStateless' k = createClassStateless \props -> k props (childrenToArra
 -- | Create an event handler.
 foreign import handle :: forall eff ev props state result.  (ev -> EventHandlerContext eff props state result) -> EventHandler ev
 
--- | Create an element from a React class spreading the children array. Used when the children are known up front.
+-- | Create an element from a React class.
 foreign import createElement :: forall props. ReactClass props -> props -> Array ReactElement -> ReactElement
 
--- | Create an element from a React class passing the children array. Used for a dynamic array of children.
-foreign import createElementDynamic :: forall props. ReactClass props -> props -> Array ReactElement -> ReactElement
-
--- | Create an element from a tag name spreading the children array. Used when the children are known up front.
+-- | Create an element from a tag name.
 foreign import createElementTagName :: forall props. TagName -> props -> Array ReactElement -> ReactElement
-
--- | Create an element from a tag name passing the children array. Used for a dynamic array of children.
-foreign import createElementTagNameDynamic :: forall props. TagName -> props -> Array ReactElement -> ReactElement
 
 -- | Create a factory from a React class.
 foreign import createFactory :: forall props. ReactClass props -> props -> ReactElement

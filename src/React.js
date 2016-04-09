@@ -117,24 +117,15 @@ function handle(f) {
 exports.handle = handle;
 
 function createElement(class_) {
-  return function(props){
-    return function(children){
-      return React.createElement.apply(React, [class_, props].concat(children));
+  return function(props) {
+    return function(children) {
+      var unwrappedChildren = children.map(c => c.value0);
+      return React.createElement.apply(React, [class_, props].concat(unwrappedChildren));
     };
   };
 }
 exports.createElement = createElement;
 exports.createElementTagName = createElement;
-
-function createElementDynamic(class_) {
-  return function(props) {
-    return function(children){
-      return React.createElement(class_, props, children);
-    };
-  };
-};
-exports.createElementDynamic = createElementDynamic;
-exports.createElementTagNameDynamic = createElementDynamic;
 
 function createFactory(class_) {
   return React.createFactory(class_);
