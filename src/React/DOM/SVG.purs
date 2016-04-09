@@ -4,56 +4,56 @@ import React (ReactElement())
 import React.DOM (mkDOM)
 import React.DOM.Props (Props())
 
-circle :: Array Props -> Array ReactElement -> ReactElement
+circle :: Array Props -> ReactElement -> ReactElement
 circle = mkDOM "circle"
 
-clipPath :: Array Props -> Array ReactElement -> ReactElement
+clipPath :: Array Props -> ReactElement -> ReactElement
 clipPath = mkDOM "clipPath"
 
-defs :: Array Props -> Array ReactElement -> ReactElement
+defs :: Array Props -> ReactElement -> ReactElement
 defs = mkDOM "defs"
 
-ellipse :: Array Props -> Array ReactElement -> ReactElement
+ellipse :: Array Props -> ReactElement -> ReactElement
 ellipse = mkDOM "ellipse"
 
-g :: Array Props -> Array ReactElement -> ReactElement
+g :: Array Props -> ReactElement -> ReactElement
 g = mkDOM "g"
 
-line :: Array Props -> Array ReactElement -> ReactElement
+line :: Array Props -> ReactElement -> ReactElement
 line = mkDOM "line"
 
-linearGradient :: Array Props -> Array ReactElement -> ReactElement
+linearGradient :: Array Props -> ReactElement -> ReactElement
 linearGradient = mkDOM "linearGradient"
 
-mask :: Array Props -> Array ReactElement -> ReactElement
+mask :: Array Props -> ReactElement -> ReactElement
 mask = mkDOM "mask"
 
-path :: Array Props -> Array ReactElement -> ReactElement
+path :: Array Props -> ReactElement -> ReactElement
 path = mkDOM "path"
 
-pattern :: Array Props -> Array ReactElement -> ReactElement
+pattern :: Array Props -> ReactElement -> ReactElement
 pattern = mkDOM "pattern"
 
-polygon :: Array Props -> Array ReactElement -> ReactElement
+polygon :: Array Props -> ReactElement -> ReactElement
 polygon = mkDOM "polygon"
 
-polyline :: Array Props -> Array ReactElement -> ReactElement
+polyline :: Array Props -> ReactElement -> ReactElement
 polyline = mkDOM "polyline"
 
-radialGradient :: Array Props -> Array ReactElement -> ReactElement
+radialGradient :: Array Props -> ReactElement -> ReactElement
 radialGradient = mkDOM "radialGradient"
 
-rect :: Array Props -> Array ReactElement -> ReactElement
+rect :: Array Props -> ReactElement -> ReactElement
 rect = mkDOM "rect"
 
-stop :: Array Props -> Array ReactElement -> ReactElement
+stop :: Array Props -> ReactElement -> ReactElement
 stop = mkDOM "stop"
 
-svg :: Array Props -> Array ReactElement -> ReactElement
+svg :: Array Props -> ReactElement -> ReactElement
 svg = mkDOM "svg"
 
-text :: Array Props -> Array ReactElement -> ReactElement
+text :: Array Props -> ReactElement -> ReactElement
 text = mkDOM "text"
 
-tspan :: Array Props -> Array ReactElement -> ReactElement
+tspan :: Array Props -> ReactElement -> ReactElement
 tspan = mkDOM "tspan"
