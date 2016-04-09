@@ -2,9 +2,11 @@
 
 module React
   ( ReactElement
-  , ReactElementImpl()
+  , ReactElementImpl(..)
+  , ReactElementRaw()
   , ReactComponent()
   , ReactThis()
+  , TaggedReactElement(..)
   , TagName()
 
   , EventHandler()
