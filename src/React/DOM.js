@@ -3,6 +3,6 @@
 
 // module React.DOM
 
-exports.text = function(text) {
+exports.textImpl = function(text) {
     return text;
 };
