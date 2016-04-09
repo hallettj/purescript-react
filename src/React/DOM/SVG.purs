@@ -1,59 +1,59 @@
 module React.DOM.SVG where
 
 import React (ReactElement())
-import React.DOM (IsDynamic(..), mkDOM)
+import React.DOM (mkDOM)
 import React.DOM.Props (Props())
 
 circle :: Array Props -> Array ReactElement -> ReactElement
-circle = mkDOM (IsDynamic false) "circle"
+circle = mkDOM "circle"
 
 clipPath :: Array Props -> Array ReactElement -> ReactElement
-clipPath = mkDOM (IsDynamic false) "clipPath"
+clipPath = mkDOM "clipPath"
 
 defs :: Array Props -> Array ReactElement -> ReactElement
-defs = mkDOM (IsDynamic false) "defs"
+defs = mkDOM "defs"
 
 ellipse :: Array Props -> Array ReactElement -> ReactElement
-ellipse = mkDOM (IsDynamic false) "ellipse"
+ellipse = mkDOM "ellipse"
 
 g :: Array Props -> Array ReactElement -> ReactElement
-g = mkDOM (IsDynamic false) "g"
+g = mkDOM "g"
 
 line :: Array Props -> Array ReactElement -> ReactElement
-line = mkDOM (IsDynamic false) "line"
+line = mkDOM "line"
 
 linearGradient :: Array Props -> Array ReactElement -> ReactElement
-linearGradient = mkDOM (IsDynamic false) "linearGradient"
+linearGradient = mkDOM "linearGradient"
 
 mask :: Array Props -> Array ReactElement -> ReactElement
-mask = mkDOM (IsDynamic false) "mask"
+mask = mkDOM "mask"
 
 path :: Array Props -> Array ReactElement -> ReactElement
-path = mkDOM (IsDynamic false) "path"
+path = mkDOM "path"
 
 pattern :: Array Props -> Array ReactElement -> ReactElement
-pattern = mkDOM (IsDynamic false) "pattern"
+pattern = mkDOM "pattern"
 
 polygon :: Array Props -> Array ReactElement -> ReactElement
-polygon = mkDOM (IsDynamic false) "polygon"
+polygon = mkDOM "polygon"
 
 polyline :: Array Props -> Array ReactElement -> ReactElement
-polyline = mkDOM (IsDynamic false) "polyline"
+polyline = mkDOM "polyline"
 
 radialGradient :: Array Props -> Array ReactElement -> ReactElement
-radialGradient = mkDOM (IsDynamic false) "radialGradient"
+radialGradient = mkDOM "radialGradient"
 
 rect :: Array Props -> Array ReactElement -> ReactElement
-rect = mkDOM (IsDynamic false) "rect"
+rect = mkDOM "rect"
 
 stop :: Array Props -> Array ReactElement -> ReactElement
-stop = mkDOM (IsDynamic false) "stop"
+stop = mkDOM "stop"
 
 svg :: Array Props -> Array ReactElement -> ReactElement
-svg = mkDOM (IsDynamic false) "svg"
+svg = mkDOM "svg"
 
 text :: Array Props -> Array ReactElement -> ReactElement
-text = mkDOM (IsDynamic false) "text"
+text = mkDOM "text"
 
 tspan :: Array Props -> Array ReactElement -> ReactElement
-tspan = mkDOM (IsDynamic false) "tspan"
+tspan = mkDOM "tspan"
