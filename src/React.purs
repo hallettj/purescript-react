@@ -337,11 +337,20 @@ createClassStateless' k = createClassStateless \props -> k props (childrenToArra
 -- | Create an event handler.
 foreign import handle :: forall eff ev props state result.  (ev -> EventHandlerContext eff props state result) -> EventHandler ev
 
+foreign import createElementImpl :: forall props. ReactClass props -> props -> ReactElement -> ReactElementRaw
+
+foreign import createElementTagNameImpl :: forall props. TagName -> props -> ReactElement -> ReactElementRaw
+
 -- | Create an element from a React class.
-foreign import createElement :: forall props. ReactClass props -> props -> ReactElement -> ReactElement
+createElement :: forall props. ReactClass props -> props -> ReactElement -> ReactElement
+createElement cp p e = wrapReactElementRaw (createElementImpl cp p e)
 
 -- | Create an element from a tag name.
-foreign import createElementTagName :: forall props. TagName -> props -> ReactElement -> ReactElement
+createElementTagName :: forall props. TagName -> props -> ReactElement -> ReactElement
+createElementTagName cp p e = wrapReactElementRaw (createElementTagNameImpl cp p e)
+
+wrapReactElementRaw :: ReactElementRaw -> ReactElement
+wrapReactElementRaw e = ReactElement [StaticElement e] unit
 
 -- | Create a factory from a React class.
 foreign import createFactory :: forall props. ReactClass props -> props -> ReactElement

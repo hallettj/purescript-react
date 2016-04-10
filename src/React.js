@@ -116,7 +116,7 @@ function handle(f) {
 };
 exports.handle = handle;
 
-function createElement(class_) {
+function createElementImpl(class_) {
   return function(props) {
     return function(children) {
       var unwrappedChildren = children.value0.map(c => c.value0);
@@ -124,8 +124,8 @@ function createElement(class_) {
     };
   };
 }
-exports.createElement = createElement;
-exports.createElementTagName = createElement;
+exports.createElementImpl = createElementImpl;
+exports.createElementTagNameImpl = createElementImpl;
 
 function createFactory(class_) {
   return React.createFactory(class_);
